@@ -21,5 +21,18 @@ bot.start((ctx) => {
     );
 });
 
+module.exports = async (req, res) => {
+    try {
+        if (req.method === 'POST') {
+            await bot.handleUpdate(req.body);
+            return res.status(200).json({ ok: true });
+        }
+        return res.status(200).send('Wavy Store Bot is running!');
+    } catch (e) {
+        console.error(e);
+        return res.status(500).json({ error: e.message });
+    }
+};
+
 bot.launch();
 console.log('Бот запущен!');
